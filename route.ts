@@ -1,0 +1,1 @@
+export async function GET(){return Response.json({ok:true,service:"NOVEXA AI",time:new Date().toISOString()})}

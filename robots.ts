@@ -1,0 +1,1 @@
+export default function robots(){return {rules:{userAgent:"*",allow:"/"},sitemap:"https://your-domain.example/sitemap.xml"}}

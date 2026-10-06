@@ -1,0 +1,11 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql" url = env("DATABASE_URL") }
+enum Role { USER ADMIN OWNER }
+model User { id String @id @default(cuid()) email String @unique name String? phone String? role Role @default(USER) createdAt DateTime @default(now()) memberships Membership[] sessions Session[] otpChallenges OtpChallenge[] auditLogs AuditLog[] }
+model Organization { id String @id @default(cuid()) name String createdAt DateTime @default(now()) memberships Membership[] agents Agent[] documents Document[] }
+model Membership { id String @id @default(cuid()) userId String organizationId String role Role @default(USER) user User @relation(fields:[userId],references:[id]) organization Organization @relation(fields:[organizationId],references:[id]) @@unique([userId,organizationId]) }
+model Session { id String @id @default(cuid()) userId String expiresAt DateTime user User @relation(fields:[userId],references:[id]) }
+model OtpChallenge { id String @id @default(cuid()) userId String? email String? phone String? codeHash String expiresAt DateTime attempts Int @default(0) user User? @relation(fields:[userId],references:[id]) }
+model Agent { id String @id @default(cuid()) name String type String status String @default("ACTIVE") organizationId String organization Organization @relation(fields:[organizationId],references:[id]) createdAt DateTime @default(now()) }
+model Document { id String @id @default(cuid()) name String storageKey String status String @default("UPLOADED") organizationId String organization Organization @relation(fields:[organizationId],references:[id]) createdAt DateTime @default(now()) }
+model AuditLog { id String @id @default(cuid()) userId String? action String metadata String? createdAt DateTime @default(now()) user User? @relation(fields:[userId],references:[id]) }

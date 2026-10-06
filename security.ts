@@ -1,0 +1,1 @@
+export function normalizeEmail(email:string){return email.trim().toLowerCase()}export function isStrongPassword(p:string){return p.length>=12}

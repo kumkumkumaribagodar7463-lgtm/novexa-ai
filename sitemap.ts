@@ -1,0 +1,1 @@
+export default function sitemap(){const base="https://your-domain.example";return [{url:base},{url:base+"/login"},{url:base+"/signup"}]}

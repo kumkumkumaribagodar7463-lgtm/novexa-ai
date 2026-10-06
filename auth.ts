@@ -1,0 +1,1 @@
+export type SessionUser={id:string,email:string,role:"USER"|"ADMIN"};export function requireRole(user:SessionUser,role:SessionUser["role"]){if(user.role!==role)throw new Error("Forbidden");return user}
